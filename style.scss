@@ -1,7 +1,8 @@
 @function pixelize($colors, $size) {
   $result: '';
   $numRows: length($colors);
-
+  $sep: '';
+  
   @for $rowIndex from 1 through $numRows {
     $y: ($rowIndex - 1);
     $row: nth($colors, $rowIndex);
@@ -11,12 +12,10 @@
       $x: ($cellIndex - 1);
       $color: nth($row, $cellIndex);
       
-      $sep: ',';
-      @if $x == 0 and $y == 0 {
-        $sep: '';
+      @if $color != $t {
+        $result: $result + '#{$sep} #{$x * $size} #{$y * $size} #{$color}';
+        $sep: ',';
       }
-      
-      $result: $result + '#{$sep} #{$x * $size} #{$y * $size} #{$color}'
     }
   }
   
